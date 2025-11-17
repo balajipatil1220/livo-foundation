@@ -22,9 +22,9 @@ export default function HeroSection({ onExplore }) {
   }, [backgroundImages.length])
 
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-10 bg-gray-50">
-      {/* Main rounded container */}
-      <div className="relative z-0 w-[90%] h-[85vh] mx-auto mt-10 rounded-3xl overflow-hidden shadow-2xl flex flex-col justify-center items-center text-center px-4 sm:px-8">
+    <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-gray-50">
+      {/* Main container */}
+      <div className="relative z-0 w-[90%] max-w-6xl mx-auto rounded-3xl overflow-hidden shadow-2xl flex flex-col justify-center items-center text-center px-4 sm:px-8 py-12">
         
         {/* Background images */}
         <div ref={imageContainerRef} className="absolute inset-0 transition-opacity duration-1000 ease-in-out">
@@ -35,15 +35,21 @@ export default function HeroSection({ onExplore }) {
                 index === currentImageIndex ? "opacity-100" : "opacity-0"
               }`}
             >
-              <Image src={image} alt={`Healthcare background ${index + 1}`} fill className="object-cover" priority={index === 0} />
+              <Image
+                src={image}
+                alt={`Healthcare background ${index + 1}`}
+                fill
+                className="object-cover"
+                priority={index === 0}
+              />
             </div>
           ))}
         </div>
 
-        {/* Gradient overlay for better text readability */}
+        {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60 z-10" />
 
-        {/* Optional canvas visual effect */}
+        {/* Canvas effect */}
         <canvas ref={canvasRef} className="absolute inset-0 opacity-30 z-10 pointer-events-none" />
 
         {/* Foreground content */}
@@ -52,7 +58,7 @@ export default function HeroSection({ onExplore }) {
             Power of Healthcare Transformation
           </h1>
 
-          <p className="text-base sm:text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto font-medium drop-shadow-md">
+          <p className="text-base sm:text-lg md:text-xl text-white/90 mb-6 max-w-2xl mx-auto font-medium drop-shadow-md">
             Delivering accessible healthcare, nutrition, and empowerment to underserved communities across India — one life at a time.
           </p>
 
@@ -65,7 +71,7 @@ export default function HeroSection({ onExplore }) {
           </button>
 
           {/* Navigation dots */}
-          <div className="flex justify-center gap-2 mt-10">
+          <div className="flex justify-center gap-2 mt-6">
             {backgroundImages.map((_, index) => (
               <button
                 key={index}

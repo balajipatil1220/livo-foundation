@@ -10,7 +10,6 @@ function CounterStat({ value, label, icon: Icon, delay = 0 }) {
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting && !isVisible) setIsVisible(true)
     }, { threshold: 0.1 })
-
     if (ref.current) observer.observe(ref.current)
     return () => observer.disconnect()
   }, [isVisible])
@@ -38,94 +37,74 @@ function CounterStat({ value, label, icon: Icon, delay = 0 }) {
   return (
     <div
       ref={ref}
-      className="group p-6 rounded-xl bg-gradient-to-br from-white to-blue-50 border border-blue-200 shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-center"
+      className="group p-3 rounded-lg bg-gradient-to-br from-white to-blue-50 border border-blue-200 shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-105 text-center flex-1 min-w-[120px] sm:min-w-[140px] md:min-w-[160px]"
       style={{ transitionDelay: `${delay}ms` }}
     >
-      <div className="mb-3 inline-block p-3 rounded-lg bg-gradient-to-br from-primary/15 to-primary/10 group-hover:from-primary/25 group-hover:to-primary/15 transition-all duration-300">
-        <Icon className="w-7 h-7 text-primary" />
+      <div className="mb-2 inline-block p-2 rounded-md bg-gradient-to-br from-primary/15 to-primary/10 group-hover:from-primary/25 group-hover:to-primary/15 transition-all duration-300">
+        <Icon className="w-5 h-5 text-primary" />
       </div>
-      <p className="text-3xl md:text-4xl font-bold text-primary mb-1">
+      <p className="text-xl md:text-2xl font-bold text-primary mb-0.5">
         {count}{suffix}
       </p>
-      <p className="text-sm md:text-base text-gray-600 font-semibold">{label}</p>
+      <p className="text-xs md:text-sm text-gray-600 font-semibold">{label}</p>
     </div>
   )
 }
 
 export default function ImpactSection() {
   const sectionRef = useRef(null)
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) setIsVisible(true)
-    }, { threshold: 0.1 })
-    if (sectionRef.current) observer.observe(sectionRef.current)
-    return () => observer.disconnect()
-  }, [])
 
   const impactStats = [
-    { label: "Lives Impacted", value: "50000+", icon: Heart },
+    { label: "Lives Impacted", value: "10000+", icon: Heart },
     { label: "Health Camps", value: "150+", icon: Stethoscope },
-    { label: "Free Surgery and Treatment", value: "10000+", icon: Building2 },
+    { label: "Free Surgery & Treatment", value: "10000+", icon: Building2 },
     { label: "Pads Distributed", value: "500000+", icon: Flower2 },
-    { label: "Animals Treated", value: "2000+", icon: PawPrint },
-    { label: "Years of Service", value: "15+", icon: Users },
-  ]
-
-  const additionalImpactStats = [
-    { title: "Healthcare Support", value: "10000+", icon: Heart },
-    { title: "Nutrition Programs", value: "1500+", icon: Apple },
-    { title: "Community Empowerment", value: "2000+", icon: Users },
+    { label: "Animals Treated", value: "1000+", icon: PawPrint },
+    { label: "Years of Service", value: "+6", icon: Users },
+    { label: "Healthcare Support", value: "10000+", icon: Heart },
+    { label: "Nutrition Programs", value: "500+", icon: Apple },
+    { label: "Community Empowerment", value: "1000+", icon: Users },
   ]
 
   return (
     <section
       ref={sectionRef}
-      className="relative w-full py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background via-blue-50/30 to-background overflow-hidden"
+      id="impact"
+      className="relative w-full scroll-mt-28 py-16 md:py-20 px-4 bg-gradient-to-b from-background via-blue-50/30 to-background overflow-hidden"
     >
-      {/* Background Glow */}
+      {/* Background glow */}
       <div className="absolute top-0 right-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-accent/5 rounded-full blur-3xl" />
 
-      <div className="relative z-10 max-w-6xl mx-auto">
+      <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-10">
           <span className="px-5 py-2 rounded-full bg-primary/10 text-primary text-sm font-bold">
             Our Achievement
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-3 bg-gradient-to-r from-primary via-blue-600 to-accent bg-clip-text text-transparent">
+          <h2 className="text-3xl md:text-4xl font-bold mt-4 mb-2 bg-gradient-to-r from-primary via-blue-600 to-accent bg-clip-text text-transparent">
             Our Impact & Reach
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
             Transforming lives through healthcare, nutrition, and community empowerment across India.
           </p>
         </div>
 
-        {/* Main Stats */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {impactStats.map((stat, index) => (
-            <CounterStat
-              key={index}
-              value={stat.value}
-              label={stat.label}
-              icon={stat.icon}
-              delay={index * 100}
-            />
-          ))}
-        </div>
+        {/* Responsive Two Rows */}
+        <div className="flex flex-col items-center gap-6">
+          {/* Row 1: 5 cards (wrap on smaller screens) */}
+          <div className="flex flex-wrap justify-center md:justify-between w-full max-w-6xl gap-x-3 gap-y-6">
+            {impactStats.slice(0, 5).map((stat, index) => (
+              <CounterStat key={index} {...stat} delay={index * 100} />
+            ))}
+          </div>
 
-        {/* Additional Stats */}
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {additionalImpactStats.map((item, index) => (
-            <CounterStat
-              key={index}
-              value={item.value}
-              label={item.title}
-              icon={item.icon}
-              delay={(index + 6) * 100}
-            />
-          ))}
+          {/* Row 2: 4 cards (wrap on smaller screens) */}
+          <div className="flex flex-wrap justify-center md:justify-between w-full max-w-5xl gap-x-3 gap-y-6">
+            {impactStats.slice(5, 9).map((stat, index) => (
+              <CounterStat key={index + 5} {...stat} delay={(index + 5) * 100} />
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -21,9 +21,7 @@ export default function ObjectivesSection() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
+        if (entry.isIntersecting) setIsVisible(true)
       },
       { threshold: 0.1 }
     )
@@ -64,7 +62,8 @@ export default function ObjectivesSection() {
         "Organize educational seminars, awareness workshops, and healthcare conferences nationwide.",
       fullText:
         "We conduct workshops, competitions, and conferences to promote community healthcare awareness.",
-      image: "/healthcare-awareness-campaign-community.jpg",
+      image:
+        "https://gpo7e0fz6e.ufs.sh/f/KD5H5HN5C4X1ADUDZp1gwqDHaUZoxjvt0Pp3SlXzWIEu5KcM",
       color: "from-purple-500 to-purple-600",
     },
     {
@@ -133,107 +132,81 @@ export default function ObjectivesSection() {
     <section
       id="objectives"
       ref={sectionRef}
-      className="relative w-full py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background via-blue-50/20 to-background overflow-hidden"
+      className="relative w-full scroll-mt-28 py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background via-blue-50/30 to-background overflow-hidden"
     >
-      {/* Soft background glow */}
+      {/* Background glow */}
       <div className="absolute top-0 right-0 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-accent/5 rounded-full blur-3xl" />
 
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-14">
-          <span className="px-5 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold">
+        <div className="text-center mb-10">
+          <span className="px-5 py-2 rounded-full bg-primary/10 text-primary text-sm font-bold">
             Our Foundation
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold mt-6 mb-4 text-balance bg-gradient-to-r from-primary via-blue-600 to-accent bg-clip-text text-transparent">
+          <h2 className="text-3xl md:text-4xl font-bold mt-4 mb-2 bg-gradient-to-r from-primary via-blue-600 to-accent bg-clip-text text-transparent">
             8 Core Objectives & Mission
           </h2>
-          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Comprehensive initiatives transforming lives through healthcare,
-            education, and community empowerment.
+          <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+            Comprehensive initiatives transforming lives through healthcare, education, and community empowerment.
           </p>
         </div>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-14">
+        {/* Objectives Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
           {objectives.map((objective, index) => {
             const Icon = objective.icon
             return (
               <div
                 key={objective.id}
-                className={`group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 border border-blue-100 hover:border-primary/50 h-80 cursor-pointer ${
-                  isVisible
-                    ? "translate-y-0 opacity-100"
-                    : "translate-y-8 opacity-0"
+                className={`group relative rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-500 border border-blue-100 hover:border-primary/50 h-64 cursor-pointer ${
+                  isVisible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
                 }`}
-                style={{
-                  transitionDelay: isVisible ? `${index * 80}ms` : "0ms",
-                }}
+                style={{ transitionDelay: isVisible ? `${index * 80}ms` : "0ms" }}
               >
-                {/* Background Image */}
-                <div className="relative h-full bg-gradient-to-br from-blue-100 to-blue-50">
-                  <Image
-                    src={objective.image || "/placeholder.svg"}
-                    alt={objective.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent transition-all duration-500" />
-
-                  {/* Icon */}
-                  <div
-                    className={`absolute top-4 right-4 p-2.5 rounded-lg bg-gradient-to-br ${objective.color} shadow-md`}
-                  >
-                    <Icon className="w-5 h-5 text-white" />
-                  </div>
+                <Image
+                  src={objective.image}
+                  alt={objective.title}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                <div className={`absolute top-4 right-4 p-2 rounded-lg bg-gradient-to-br ${objective.color}`}>
+                  <Icon className="w-5 h-5 text-white" />
                 </div>
-
-                {/* Content */}
-                <div className="absolute inset-0 flex flex-col justify-end p-5 text-white">
-                  <h3 className="text-lg font-semibold mb-1">
-                    {objective.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-white/90 line-clamp-3 leading-relaxed">
-                    {objective.description}
-                  </p>
+                <div className="absolute inset-0 flex flex-col justify-end p-4 text-white">
+                  <h3 className="text-base font-semibold mb-1">{objective.title}</h3>
+                  <p className="text-xs sm:text-sm text-white/90 line-clamp-3 leading-relaxed">{objective.description}</p>
                 </div>
               </div>
             )
           })}
         </div>
 
-        {/* Detailed List */}
-        <div className="bg-gradient-to-br from-blue-50 to-blue-100/40 rounded-2xl p-8 md:p-10 border border-blue-200 shadow-md mb-14">
-          <h3 className="text-2xl md:text-3xl font-bold mb-10 text-gray-900 text-center">
+        {/* Detailed Overview */}
+        <div className="bg-gradient-to-br from-blue-50 to-blue-100/40 rounded-2xl p-6 md:p-8 border border-blue-200 shadow-sm mb-10">
+          <h3 className="text-xl md:text-2xl font-bold mb-8 text-gray-900 text-center">
             Detailed Objectives Overview
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {objectives.map((objective, index) => {
               const Icon = objective.icon
               return (
                 <div
                   key={objective.id}
-                  className={`flex items-start gap-4 p-4 rounded-xl bg-white border border-blue-200 hover:border-primary/50 hover:shadow-md transition-all duration-300 ${
-                    isVisible
-                      ? "translate-x-0 opacity-100"
-                      : "-translate-x-8 opacity-0"
+                  className={`flex items-start gap-3 p-3 rounded-xl bg-white border border-blue-200 hover:border-primary/50 hover:shadow-md transition-all duration-300 ${
+                    isVisible ? "translate-x-0 opacity-100" : "-translate-x-8 opacity-0"
                   }`}
-                  style={{
-                    transitionDelay: isVisible ? `${index * 60}ms` : "0ms",
-                  }}
+                  style={{ transitionDelay: isVisible ? `${index * 60}ms` : "0ms" }}
                 >
-                  <div
-                    className={`flex-shrink-0 p-2.5 rounded-md bg-gradient-to-br ${objective.color} shadow-sm`}
-                  >
-                    <Icon className="w-5 h-5 text-white" />
+                  <div className={`flex-shrink-0 p-2 rounded-md bg-gradient-to-br ${objective.color}`}>
+                    <Icon className="w-4 h-4 text-white" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base">
+                    <h4 className="font-semibold text-gray-900 mb-1 text-sm">
                       {objective.title}
                     </h4>
-                    <p className="text-xs sm:text-sm text-gray-700 leading-relaxed">
-                      {objective.fullText}
-                    </p>
+                    <p className="text-xs text-gray-700 leading-relaxed">{objective.fullText}</p>
                   </div>
                 </div>
               )
@@ -242,8 +215,8 @@ export default function ObjectivesSection() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {[
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+          {[ 
             { label: "Healthcare Programs", value: "50+", icon: Stethoscope },
             { label: "Training Centers", value: "15+", icon: BookOpen },
             { label: "Communities Served", value: "100+", icon: Users },
@@ -253,20 +226,14 @@ export default function ObjectivesSection() {
             return (
               <div
                 key={index}
-                className={`p-5 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 text-center transition-all duration-500 hover:shadow-md hover:scale-105 ${
+                className={`p-4 rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 text-center transition-all duration-500 hover:shadow-md hover:scale-105 ${
                   isVisible ? "scale-100 opacity-100" : "scale-95 opacity-0"
                 }`}
-                style={{
-                  transitionDelay: isVisible ? `${(index + 8) * 80}ms` : "0ms",
-                }}
+                style={{ transitionDelay: isVisible ? `${(index + 8) * 80}ms` : "0ms" }}
               >
-                <StatIcon className="w-7 h-7 text-primary mx-auto mb-1.5" />
-                <p className="text-2xl md:text-3xl font-bold text-primary mb-1">
-                  {stat.value}
-                </p>
-                <p className="text-xs sm:text-sm text-gray-600 font-medium">
-                  {stat.label}
-                </p>
+                <StatIcon className="w-5 h-5 text-primary mx-auto mb-1" />
+                <p className="text-xl md:text-2xl font-bold text-primary mb-0.5">{stat.value}</p>
+                <p className="text-xs md:text-sm text-gray-600 font-semibold">{stat.label}</p>
               </div>
             )
           })}
